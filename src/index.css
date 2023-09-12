@@ -13,3 +13,9 @@
 body {
   font-family: "DM Sans", sans-serif;
 }
+
+.container {
+  max-width: 1340px;
+  width: 90%;
+  margin: auto;
+}

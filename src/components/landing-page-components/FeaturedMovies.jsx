@@ -32,7 +32,7 @@ const FeaturedMovies = () => {
     <section className="py-20">
       <div className="container">
         <div className="flex items-center justify-between mb-12">
-          <h2 className="text-3xl font-bold">Featured Movie</h2>
+          <h2 className="text-2xl md:text-3xl font-bold">Featured Movie</h2>
 
           <a href="#" className="text-[#BE123C] flex items-center gap-3">
             See More
@@ -40,7 +40,7 @@ const FeaturedMovies = () => {
           </a>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-[30px]">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center gap-[20px] lg:gap-[30px]">
           {data?.results.slice(0, 10).map((item, index) => (
             <MovieCard
               key={index}
@@ -56,7 +56,7 @@ const FeaturedMovies = () => {
 
 const MovieCard = ({ bg_image, title }) => {
   return (
-    <div className="w-[340px] sm:w-[250px]">
+    <div className="w-[97%] sm:w-[250px]">
       <div
         className="w-full h-[370px]"
         style={{

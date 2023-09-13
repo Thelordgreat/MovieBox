@@ -20,7 +20,7 @@ const Nav = () => {
             <span className="text-2xl font-bold text-[#ffffff]">MovieBox</span>
           </a>
 
-          <div className="border lg:flex w-[50%] h-[50px] rounded-lg overflow-hidden hidden">
+          <div className="border border-[#ffffff] text-[#FFFFFF] lg:flex w-[50%] h-[50px] rounded-lg overflow-hidden hidden">
             <input
               type="text"
               placeholder="What do you want to watch?"

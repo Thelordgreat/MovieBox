@@ -31,8 +31,6 @@ const FeaturedMovies = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log(data?.results, "Here is the data");
-
   return (
     <section className="py-20">
       <div className="container">

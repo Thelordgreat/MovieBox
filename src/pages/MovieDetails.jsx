@@ -45,7 +45,7 @@ const MovieDetails = () => {
 
   return (
     <section className="w-screen h-screen flex flex-row overflow-hidden">
-      <div className="hidden">
+      <div className="hidden lg:block">
         <Sidebar />
       </div>
 

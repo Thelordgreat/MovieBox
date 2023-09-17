@@ -62,13 +62,15 @@ const MovieDetails = () => {
 
         <div className="grid lg:grid-cols-4 gap-5">
           <div className="col-span-3">
-            <div className="flex flex-col lg:items-center gap-3 my-4">
-              <div className="text-xl text-[#404040] font-semibold flex flex-col">
+            <div className="flex flex-col  gap-3 my-4">
+              <div className="text-xl text-[#404040] font-semibold flex flex-col lg:flex-row gap-4">
                 <span data-testid="movie-title">{data.original_title} •</span>
-                <span data-testid="movie-release-date">
-                  {data.release_date}
-                </span>
-                <span>• PG-13 • 2h 10m</span>
+                <div className="flex items-center gap-2">
+                  <span data-testid="movie-release-date">
+                    {data.release_date}
+                  </span>
+                  <span>• PG-13 • 2h 10m</span>
+                </div>
               </div>
               <div>
                 <span className="border text-[15px] text-[#B91C1C] px-4 rounded-2xl">

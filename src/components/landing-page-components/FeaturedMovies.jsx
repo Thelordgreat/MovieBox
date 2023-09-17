@@ -5,20 +5,21 @@ import PropTypes from "prop-types";
 import { MdOutlineFavorite } from "react-icons/md";
 import IMDB from "../../assets/IMDB-logo.svg";
 import fruit from "../../assets/fruit.svg";
+import { useNavigate } from "react-router-dom";
 
 // const apiKey = process.env.REACT_APP_API_KEY;
 
 const FeaturedMovies = () => {
   async function fetchMovies() {
     const res = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=92d1c24af06d39fe229fa775cef035c2`
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=92d1c24af06d39fe229fa775cef035c2`
     );
     const data = await res.json();
     return data;
   }
 
   const { data, isLoading, isError, error } = useQuery(
-    "all-properties",
+    "featured-movies",
     fetchMovies
   );
 
@@ -45,7 +46,7 @@ const FeaturedMovies = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center gap-[20px] lg:gap-[30px]">
-          {data?.results.slice(0, 10).map((item, index) => (
+          {data?.results?.slice(0, 10).map((item, index) => (
             <MovieCard
               key={index}
               bg_image={item.poster_path}
@@ -53,6 +54,7 @@ const FeaturedMovies = () => {
               rating={item.vote_average}
               popularity={item.popularity}
               released_year={item.release_date}
+              id={item.id}
             />
           ))}
         </div>
@@ -61,7 +63,16 @@ const FeaturedMovies = () => {
   );
 };
 
-const MovieCard = ({ bg_image, title, rating, popularity, released_year }) => {
+const MovieCard = ({
+  bg_image,
+  title,
+  rating,
+  popularity,
+  released_year,
+  id,
+}) => {
+  const navigate = useNavigate();
+
   // const [like, setLike] = useState("#ffffff");
 
   // const toggleFavouritesIcon = () => {
@@ -74,9 +85,6 @@ const MovieCard = ({ bg_image, title, rating, popularity, released_year }) => {
   const numberFromEndpoint = popularity;
   const roundedDownNumber = Math.floor(numberFromEndpoint);
 
-  const dateFromEndpoint = released_year;
-  const year = dateFromEndpoint.split("-")[0];
-
   // useEffect(() => {
   //   // When the component mounts, check if there's a like value in localStorage
   //   const storedLike = localStorage.getItem("like");
@@ -85,8 +93,17 @@ const MovieCard = ({ bg_image, title, rating, popularity, released_year }) => {
   //   }
   // }, []);
 
+  const getSlug = () => {
+    navigate(`/movies/${id}`);
+    window.scrollTo(0, 0);
+  };
+
   return (
-    <div className="w-[97%] sm:w-[250px] xl:w-[270px]">
+    <div
+      className="w-[97%] sm:w-[250px] xl:w-[270px] cursor-pointer"
+      data-testid="movie-card"
+      onClick={() => getSlug(id)}
+    >
       <div
         className="w-full h-[450px] sm:h-[370px] p-2 flex justify-end items-start"
         style={{
@@ -95,6 +112,7 @@ const MovieCard = ({ bg_image, title, rating, popularity, released_year }) => {
           backgroundRepeat: `no-repeat`,
           backgroundPosition: `center`,
         }}
+        data-testid="movie-poster"
       >
         <div
           className={`text-[#fff] bg-[#F3F4F680] p-2 w-fit rounded-[50%] cursor-pointer`}
@@ -105,9 +123,12 @@ const MovieCard = ({ bg_image, title, rating, popularity, released_year }) => {
       </div>
       <div className="flex flex-col gap-2 pt-4">
         <span className="text-[#9CA3AF] text-[14px] font-bold">
-          USA, {year} - Current
+          USA, <span data-testid="movie-release-date">{released_year}</span>
         </span>
-        <span className="text-[18px] font-bold text-[#111827] truncate cursor-pointer">
+        <span
+          className="text-[18px] font-bold text-[#111827] truncate cursor-pointer"
+          data-testid="movie-title"
+        >
           {title}
         </span>
         <div className="flex items-center justify-between text-[14px]">
@@ -132,9 +153,10 @@ const MovieCard = ({ bg_image, title, rating, popularity, released_year }) => {
 MovieCard.propTypes = {
   bg_image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  rating: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
   popularity: PropTypes?.number.isRequired,
   released_year: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default FeaturedMovies;
